@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — RideCircle</title>
+
+    <link rel="stylesheet" href="site.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+html,body{ height:100%; }
+
+.auth-wrap{
+    min-height:100vh;
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+}
+
+.auth-visual{
+    position:relative;
+    background:linear-gradient(180deg, rgba(11,11,11,.15), rgba(11,11,11,.85)),
+               linear-gradient(140deg, #3a2c18 0%, #21160e 45%, #10131a 100%);
+    padding:50px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.auth-visual .brand{
+    font-size:26px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.auth-visual .brand span{ color:var(--orange); }
+
+.auth-visual .quote{
+    max-width:420px;
+}
+
+.auth-visual .quote h2{
+    font-size:20px;
+    font-weight:500;
+    font-style:italic;
+    color:#f1f1f1;
+    line-height:1.5;
+}
+
+.auth-stats{
+    display:flex;
+    gap:36px;
+}
+
+.auth-stats div h3{
+    font-size:26px;
+    font-weight:800;
+    color:var(--orange);
+}
+
+.auth-stats div p{
+    font-size:12px;
+    color:#c7c7c7;
+    margin-top:4px;
+}
+
+.auth-form-side{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px;
+}
+
+.auth-form{
+    width:100%;
+    max-width:380px;
+}
+
+.auth-form h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.auth-form > p{
+    color:var(--text-dim);
+    font-size:14px;
+    margin-bottom:30px;
+}
+
+.google-btn{
+    width:100%;
+    padding:13px;
+    background:#fff;
+    color:#1a1a1a;
+    border:none;
+    border-radius:12px;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:22px;
+    transition:.2s;
+}
+
+.google-btn:hover{ background:#f0f0f0; }
+
+.divider{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    color:#666;
+    font-size:13px;
+    margin-bottom:22px;
+}
+
+.divider::before,
+.divider::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:rgba(255,255,255,.1);
+}
+
+.auth-input-box{
+    margin-bottom:18px;
+}
+
+.auth-input-box label{
+    display:block;
+    font-size:12px;
+    letter-spacing:1px;
+    color:var(--text-dim);
+    margin-bottom:8px;
+}
+
+.auth-input-box .row-between{
+    display:flex;
+    justify-content:space-between;
+}
+
+.auth-input-box .row-between a{
+    color:var(--orange);
+    font-size:12px;
+    text-decoration:none;
+}
+
+.auth-input-box input{
+    width:100%;
+    background:#1b1b1b;
+    border:1px solid #2d2d2d;
+    color:white;
+    padding:13px 15px;
+    border-radius:12px;
+    outline:none;
+    font-size:15px;
+    transition:.3s;
+}
+
+.auth-input-box input:focus{
+    border-color:var(--orange);
+}
+
+.auth-form .signin-btn{
+    width:100%;
+    margin-top:10px;
+    padding:14px;
+    background:var(--orange);
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.auth-form .signin-btn:hover{ background:#ff9d1f; }
+
+.auth-form .switch-line{
+    text-align:center;
+    margin-top:22px;
+    font-size:14px;
+    color:var(--text-dim);
+}
+
+.auth-form .switch-line a{
+    color:var(--orange);
+    text-decoration:none;
+    font-weight:600;
+}
+
+.auth-tabs{
+    display:flex;
+    gap:8px;
+    background:#1b1b1b;
+    border:1px solid #2d2d2d;
+    border-radius:12px;
+    padding:5px;
+    margin-bottom:26px;
+}
+
+.auth-tab{
+    flex:1;
+    padding:10px;
+    background:transparent;
+    border:none;
+    border-radius:9px;
+    color:var(--text-dim);
+    font-weight:600;
+    font-size:14px;
+    font-family:'Poppins',sans-serif;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.auth-tab.active{
+    background:var(--orange);
+    color:#fff;
+}
+
+.auth-alert{
+    padding:12px 16px;
+    border-radius:10px;
+    font-size:13px;
+    margin-bottom:18px;
+}
+
+.auth-alert.ok{
+    background:rgba(74,222,128,.12);
+    border:1px solid rgba(74,222,128,.35);
+    color:#4ade80;
+}
+
+.auth-alert.error{
+    background:rgba(248,113,113,.12);
+    border:1px solid rgba(248,113,113,.35);
+    color:#f87171;
+}
+
+.demo-hint{
+    margin-top:16px;
+    font-size:12px;
+    color:#6b7280;
+    line-height:1.6;
+}
+
+.demo-hint b{ color:#9ca3af; }
+
+@media(max-width:900px){
+    .auth-wrap{ grid-template-columns:1fr; }
+    .auth-visual{ display:none; }
+}
+
+    </style>
+</head>
+
+<body>
+
+<div class="auth-wrap">
+
+    <!-- LEFT VISUAL -->
+    <div class="auth-visual">
+        <div class="brand"><i class="fa-solid fa-circle" style="color:var(--orange); font-size:16px;"></i> Ride<span>Circle</span></div>
+
+        <div class="quote">
+            <h2>"The road is long, but you never have to ride it alone."</h2>
+        </div>
+
+        <div class="auth-stats">
+            <div><h3>89K+</h3><p>Riders</p></div>
+            <div><h3>3.2K</h3><p>Online Now</p></div>
+            <div><h3>4.9M km</h3><p>Tracked</p></div>
+        </div>
+    </div>
+
+    <!-- RIGHT FORM -->
+    <div class="auth-form-side">
+        <div class="auth-form">
+
+            <div class="auth-tabs">
+                <button type="button" class="auth-tab active" data-tab="signin">Sign In</button>
+                <button type="button" class="auth-tab" data-tab="signup">Sign Up</button>
+            </div>
+
+            <div id="rc-alert" class="auth-alert" style="display:none;"></div>
+
+            <!-- SIGN IN -->
+            <div class="auth-panel" data-panel="signin">
+                <h1>Welcome back</h1>
+                <p>Sign in to your account to continue your journey.</p>
+
+                <button type="button" class="google-btn"><i class="fa-brands fa-google"></i> Continue with Google</button>
+                <div class="divider">or</div>
+
+                <form id="rc-signin-form">
+                    <div class="auth-input-box">
+                        <label>EMAIL</label>
+                        <input type="email" id="signin-email" placeholder="rider@example.com" required>
+                    </div>
+
+                    <div class="auth-input-box">
+                        <div class="row-between">
+                            <label>PASSWORD</label>
+                            <a href="#">Forgot password?</a>
+                        </div>
+                        <input type="password" id="signin-password" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" class="signin-btn">Sign In</button>
+                </form>
+
+                <p class="switch-line">Don't have an account? <a href="#" data-switch="signup">Sign Up Free</a></p>
+                <p class="demo-hint">New here? Try: <b>demo@ridecircle.app</b> / <b>demo1234</b> — or just sign up.</p>
+            </div>
+
+            <!-- SIGN UP -->
+            <div class="auth-panel" data-panel="signup" style="display:none;">
+                <h1>Join RideCircle</h1>
+                <p>Create an account to track, join rides, and rent bikes.</p>
+
+                <form id="rc-signup-form">
+                    <div class="auth-input-box">
+                        <label>FULL NAME</label>
+                        <input type="text" id="signup-name" placeholder="Arjun Singh" required>
+                    </div>
+
+                    <div class="auth-input-box">
+                        <label>EMAIL</label>
+                        <input type="email" id="signup-email" placeholder="rider@example.com" required>
+                    </div>
+
+                    <div class="auth-input-box">
+                        <label>PASSWORD</label>
+                        <input type="password" id="signup-password" placeholder="At least 4 characters" required>
+                    </div>
+
+                    <button type="submit" class="signin-btn">Create Account</button>
+                </form>
+
+                <p class="switch-line">Already have an account? <a href="#" data-switch="signin">Sign In</a></p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="auth.js"></script>
+<script>
+    /* demo account so "Sign In" works out of the box */
+    (function seedDemoUser(){
+        const users = RC_AUTH._users();
+        if(!users.some(u => u.email === "demo@ridecircle.app")){
+            users.push({ name:"Demo Rider", email:"demo@ridecircle.app", password:"demo1234",
+                         initials:"DR", joinedRides:[], bikes:[] });
+            RC_AUTH._saveUsers(users);
+        }
+    })();
+
+    const tabs = document.querySelectorAll(".auth-tab");
+    const panels = document.querySelectorAll(".auth-panel");
+    const alertBox = document.getElementById("rc-alert");
+
+    function showPanel(name){
+        tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === name));
+        panels.forEach(p => p.style.display = (p.dataset.panel === name ? "block" : "none"));
+        alertBox.style.display = "none";
+    }
+
+    tabs.forEach(t => t.addEventListener("click", () => showPanel(t.dataset.tab)));
+    document.querySelectorAll("[data-switch]").forEach(a => {
+        a.addEventListener("click", (e) => { e.preventDefault(); showPanel(a.dataset.switch); });
+    });
+
+    function showAlert(msg, ok){
+        alertBox.textContent = msg;
+        alertBox.style.display = "block";
+        alertBox.className = "auth-alert" + (ok ? " ok" : " error");
+    }
+
+    function redirectAfterLogin(){
+        const params = new URLSearchParams(window.location.search);
+        window.location.href = params.get("next") || "profile-combined.html";
+    }
+
+    document.getElementById("rc-signin-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const res = RC_AUTH.login(
+            document.getElementById("signin-email").value,
+            document.getElementById("signin-password").value
+        );
+        if(res.ok){ showAlert("Signed in — redirecting…", true); setTimeout(redirectAfterLogin, 500); }
+        else { showAlert(res.error, false); }
+    });
+
+    document.getElementById("rc-signup-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const res = RC_AUTH.signup(
+            document.getElementById("signup-name").value,
+            document.getElementById("signup-email").value,
+            document.getElementById("signup-password").value
+        );
+        if(res.ok){ showAlert("Account created — redirecting…", true); setTimeout(redirectAfterLogin, 500); }
+        else { showAlert(res.error, false); }
+    });
+
+    /* If someone lands here already logged in, skip straight through */
+    if(RC_AUTH.currentUser()){
+        // no auto-redirect so they can still see/switch accounts intentionally
+    }
+</script>
+</body>
+</html>
